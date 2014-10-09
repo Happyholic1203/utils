@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if [ $1 ]; then
+    latex $1 && bibtex $1 && latex $1 && dvipdf $1 && rm -f ${1}.aux && rm -f ${1}.dvi && rm -f ${1}.log && open ${1}.pdf
+else
+    echo "Usage: <exec> <tex-prefix>"
+    echo "Example: \`<exec> my-paper\` converts my-paper.tex to my-paper.pdf"
+fi
