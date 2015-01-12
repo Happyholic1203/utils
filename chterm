@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ -z $1 ]; then
+    echo "Usage: `basename $0` <title>"
+    echo "Synopsis: changes the terminal title of Mac OS X"
+    exit -1
+fi
+
+echo -n -e "\033]0;$1\007"

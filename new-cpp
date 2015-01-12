@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [ "$#" -ne 1 ]; then
+    echo "Usage: new-cpp <fileName>"
+    echo "Synopsis: creates an empty cpp template"
+    exit -1
+fi
+
+suffix='.cpp'
+baseName=${1/$suffix}
+fileName=$baseName$suffix
+
+cat <<EOF > $fileName && vim $fileName
+/****************************************************************************
+  FileName     [ $fileName ]
+  Package      []
+  Synopsis     []
+  Author       [ Yu-Cheng (Henry) Huang ]
+  Copyright    [ Copyleft(c) Yu-Cheng (Henry) Huang ]
+****************************************************************************/
+#include <iostream>
+using namespace std;
+
+int main() {
+    return 0;
+}
+EOF
