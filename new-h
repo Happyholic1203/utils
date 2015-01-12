@@ -1,0 +1,34 @@
+#!/bin/bash
+
+if [ "$#" -ne 1 ]; then
+    echo "Usage: new-h <fileName>"
+    exit -1
+fi
+
+suffix='.h'
+baseName=${1/$suffix}
+fileName=$baseName$suffix
+className=`echo ${baseName:0:1} | tr '[a-z]' '[A-Z]'`${baseName:1}
+incGuard=`echo $fileName | tr '[a-z]' '[A-Z]' | tr '\.' '_'`
+
+cat <<EOF > $fileName && vim $fileName
+/****************************************************************************
+  FileName     [ $fileName ]
+  Package      []
+  Synopsis     []
+  Author       [ Yu-Cheng (Henry) Huang ]
+  Copyright    [ Copyleft(c) Yu-Cheng (Henry) Huang ]
+****************************************************************************/
+
+#ifndef $incGuard
+#define $incGuard
+
+class $className {
+    public:
+        $className() {}
+        ~$className() {}
+    private:
+};
+
+#endif // $incGuard
+EOF
