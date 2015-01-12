@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ -z $1 ]; then
+    echo "Usage: `basename $0` <asmFile>"
+fi
+
+f=${1%.*}
+
+nasm -felf32 -o $f.o $f.asm
+ld -melf_i386 -o $f $f.o
+echo "> $f"

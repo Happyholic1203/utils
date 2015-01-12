@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [ $# -eq 0 ]; then
+    echo 'A simple utility that converts a binary executable into shellcode'
+    echo 'Usage: bin2shellcode <payload-binary>'
+    exit
+fi
+code=$(objdump -D $1|grep '[0-9a-f]:'|grep -v 'file'|cut -f2 -d:|tr -s ' '|tr '\t' '!'|cut -d \! -f 2|sed s/^/\ /g|sed 's/ $//g'|sed 's/ /\\x/g'|paste -d '' -s |sed 's/^/"/'|sed 's/$/"/g')
+echo $code
